@@ -1,5 +1,4 @@
 #Email Part
-
 $path_vb_ms = [System.IO.Path]::GetTempPath()
 $path_vb_ms=$path_vb_ms+"get_mail.vbs"
 $my_path="C:\gmm.vbs"
