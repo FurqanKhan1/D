@@ -43,7 +43,7 @@ function send_email()
    objMail.Subject = "Automation Details As discussed"
    objMail.Body = "As discussed , kinldy find the automation overlay attached with the email. Open teh excel sheet and follow the steps."
    
-   objMail.Attachments.Add "D:\A.xlxm" 
+   objMail.Attachments.Add "D:\A.xlsm" 
    objMail.Send  
    Set objMail = Nothing
    Set objOutlook = Nothing
