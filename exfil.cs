@@ -11,7 +11,7 @@ public class Output
 {
 	public static void WriteLine(string log)
 	{
-		File.AppendAllText(@"log_exfil.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+		File.AppendAllText(@"D:\log_exfil.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
 	}
 }
 
