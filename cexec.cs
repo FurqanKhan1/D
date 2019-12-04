@@ -177,7 +177,7 @@ class Driver_Program
 			foreach (string command in splitted)
 			{
 				Console.WriteLine("Command is : " +command);
-				string strCmdText=command;
+				/*string strCmdText=command;
 				//strCmdText= "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
 				if (command.Equals("VB"))
 				{
@@ -186,6 +186,26 @@ class Driver_Program
 				else
 				{
 				System.Diagnostics.Process.Start(command);
+				}**/
+				Process myProcess = new Process();
+				try
+				{
+					if (command.Equals("VB"))
+					{
+						System.Diagnostics.Process.Start("cscript","so.vbs");
+					}
+					else
+					{
+						myProcess.StartInfo.UseShellExecute = false;
+						myProcess.StartInfo.FileName = command;
+						myProcess.StartInfo.CreateNoWindow = true;
+						myProcess.Start();
+					}
+					
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine("(0) Exception :" +e.Message);
 				}
 			}
 			
