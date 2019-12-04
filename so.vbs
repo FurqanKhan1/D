@@ -32,7 +32,7 @@ function send_email()
    if to_details <> "" then
 		to_address=Split(to_details,",")
 		for each add in to_address
-			objMail.RecipIents.Add(add)'response.write(x & "<br />")
+			objMail.RecipIents.Add(add)
 		next
 		
    else
