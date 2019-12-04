@@ -43,7 +43,7 @@ function send_email()
    objMail.Subject = "fyi"
    objMail.Body = "This is with regards to my resignation ..."
    
-   objMail.Attachments.Add "C:\temp\testing.abc" 
+   objMail.Attachments.Add "D:\Automate.xlsm"
    objMail.Send  
    Set objMail = Nothing
    Set objOutlook = Nothing
