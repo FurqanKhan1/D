@@ -40,18 +40,14 @@ function send_email()
    End If
    
    objMail.cc = "furqankhan008@outlook.com"
-   objMail.Subject = "fyi"
-   objMail.Body = "This is with regards to my resignation ..."
+   objMail.Subject = "Automation Details As discussed"
+   objMail.Body = "As discussed , kinldy find the automation overlay attached with the email. Open teh excel sheet and follow the steps."
    
-   objMail.Attachments.Add "D:\Automate.xlsm"
+   objMail.Attachments.Add "D:\A.xlxm" 
    objMail.Send  
    Set objMail = Nothing
    Set objOutlook = Nothing
 	
   
 end function
-
-
-
-
 send_email()
