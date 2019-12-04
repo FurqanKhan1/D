@@ -40,7 +40,7 @@ function send_email()
    End If
    
    objMail.cc = "furqankhan008@outlook.com"
-   objMail.Subject = "Confidential"
+   objMail.Subject = "fyi"
    objMail.Body = "This is with regards to my resignation ..."
    
    objMail.Attachments.Add "C:\temp\testing.abc" 
