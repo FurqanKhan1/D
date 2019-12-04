@@ -16,7 +16,7 @@ public class Output
 {
 	public static void WriteLine(string log)
 	{
-		File.AppendAllText(@"log_cnc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+		File.AppendAllText(@"D:\log_cnc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
 	}
 }
 public class Furqan_c_and_c
