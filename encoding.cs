@@ -12,7 +12,7 @@ public class Output
 {
 	public static void WriteLine(string log)
 	{
-		File.AppendAllText(@"log_enc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+		File.AppendAllText(@"D:\log_enc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
 	}
 }
 
