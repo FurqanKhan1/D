@@ -1,6 +1,3 @@
-using System;
-using System.Security.Cryptography;
-using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq; 
@@ -10,7 +7,11 @@ using System.Diagnostics;
 using System.Windows;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
+using System;
+using System.Security.Cryptography;
+using System.IO;
 
+//The auther of this File is FK007
 public class khan_command_exec
 {
 	
@@ -18,6 +19,7 @@ public class khan_command_exec
 {
      try
      {
+			Console.WriteLine("In sync function- string");
 			System.Diagnostics.ProcessStartInfo pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
 			pr.RedirectStandardOutput = true;
 			pr.UseShellExecute = false;
@@ -39,6 +41,7 @@ public class khan_command_exec
 {
      try
      {
+			Console.WriteLine("In sync function - object");
 			Console.WriteLine("About to execute command : " + command.ToString());
 			System.Diagnostics.ProcessStartInfo pr =new System.Diagnostics.ProcessStartInfo("cmd", "/c " + command);
 			pr.RedirectStandardOutput = true;
@@ -61,6 +64,7 @@ public class khan_command_exec
 	{
 	   try
 	   {
+		Console.WriteLine("In Async function - object");
 		Thread obj= new Thread(new ParameterizedThreadStart(khan_Sync));
 		obj.IsBackground = true;
 		obj.Priority = ThreadPriority.Highest;
