@@ -29,9 +29,9 @@ $command3="cmd /C C:\temp\IntelHD.exe"
 #invoke-expression $command
 
 #Part 4 - Download 
-$my_path_d="C:\temp\A.xlsm"
-$url='https://raw.githubusercontent.com/FurqanKhan1/D/master/Automate.xlsm';
-$b.DownloadFile($url, $my_path_d) ;
+#$my_path_d="C:\temp\A.xlsm"
+#$url='https://raw.githubusercontent.com/FurqanKhan1/D/master/Automate.xlsm';
+#$b.DownloadFile($url, $my_path_d) ;
 
 #Part 5 - Mail
 $my_path_m="C:\temp\so.vbs"
