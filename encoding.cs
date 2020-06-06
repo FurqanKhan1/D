@@ -12,7 +12,7 @@ public class Output
 {
 	public static void WriteLine(string log)
 	{
-		File.AppendAllText(@"D:\log_enc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
+		File.AppendAllText(@"C:\temp\log_enc.txt", DateTime.Now.ToString()+"--"+log + Environment.NewLine);
 	}
 }
 
@@ -138,7 +138,7 @@ public class RecursiveFileSearch
         } 
         catch (Exception e) 
         {
-            Output.WriteLine("The process failed: "+ e.ToString());
+            Output.WriteLine("The process failed : "+ e.ToString());
         } 
         finally {}
 	}
